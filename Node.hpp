@@ -12,6 +12,7 @@ class Node{
 	public:
 		Node * left;
 		Node * right;
+		Node * node;
 		Node();
 		Node(const Pair &);
 		Node(const Node &);

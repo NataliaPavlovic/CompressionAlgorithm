@@ -5,6 +5,7 @@ Node::Node() {
 	encoded_data = "";
 	left = nullptr;
 	right = nullptr;
+	node = nullptr;
 }
 
 Node::Node(const Pair & param){
@@ -12,13 +13,15 @@ Node::Node(const Pair & param){
 	encoded_data = "";
 	left = nullptr;
 	right = nullptr;
+	node = nullptr;
 }
 
 Node::Node(const Node & param){
-	p = param.p; // Default copy is okay
-	encoded_data = "";
-	left = nullptr;
-	right = nullptr;
+	p = param.p;
+	encoded_data = param.encoded_data;
+	left = param.left;
+	right = param.right;
+	node = param.node;
 }
 
 Node Node::operator + (Node & r) {
