@@ -5,16 +5,17 @@ Loseless compression algorithm using Huffman Coding written in C++.
 
 Encoding Table:
 
-64      0111
-35      01011
-56      0110
-45      00100
-0       000
-74      00101
-4       0100
-9       0011
-3       01010
-
+Original      | Encoding
+------------- | -------------
+64            | 0111
+35            | 01011
+56            | 0110
+45            | 00100
+0             | 000
+74            | 00101
+4             | 0100
+9             | 0011
+3             | 01010
 
 Original Message:
 
