@@ -1,7 +1,7 @@
 #pragma once
 
 #include <unordered_map> 
-#include <bits/stdc++.h> 
+#include <cstdint>
 #include <string>
 
 void outputOriginal(uint8_t *, int);

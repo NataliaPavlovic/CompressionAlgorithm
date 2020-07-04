@@ -1,5 +1,6 @@
-#include "huffmanCoding.hpp"
+#include <algorithm>
 #include <unordered_map> 
+#include "huffmanCoding.hpp"
 
 using namespace std;
 

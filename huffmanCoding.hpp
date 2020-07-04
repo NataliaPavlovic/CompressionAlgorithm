@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include "Node.hpp"
 
 void deallocateNodes(Node *);
