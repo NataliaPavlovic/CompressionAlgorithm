@@ -1,11 +1,13 @@
 #include "Node.hpp"
 #include "Pair.hpp"
 
+using namespace std;
+
 Node::Node() {
 	encoded_data = "";
 	left = nullptr;
 	right = nullptr;
-	node = nullptr;
+	internal_node = nullptr;
 }
 
 Node::Node(const Pair & param){
@@ -13,7 +15,7 @@ Node::Node(const Pair & param){
 	encoded_data = "";
 	left = nullptr;
 	right = nullptr;
-	node = nullptr;
+	internal_node = nullptr;
 }
 
 Node::Node(const Node & param){
@@ -21,7 +23,7 @@ Node::Node(const Node & param){
 	encoded_data = param.encoded_data;
 	left = param.left;
 	right = param.right;
-	node = param.node;
+	internal_node = param.internal_node;
 }
 
 Node Node::operator + (Node & r) {

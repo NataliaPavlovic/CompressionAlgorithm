@@ -2,13 +2,10 @@
 
 #include <bits/stdc++.h> 
 
-using namespace std;
-
 class Pair
 {
 	uint8_t data;
 	int frequency;
-	int compare(const Pair &) const;
 
 	public:	
 		Pair() {data = 0xFF; frequency = 0;}

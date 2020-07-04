@@ -1,106 +1,15 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map> 
+#include <bits/stdc++.h> 
+#include <string>
 #include "main.hpp"
-#include "Pair.hpp"
 #include "frequencyOrder.hpp"
 #include "Node.hpp"
-#include <unordered_map> 
+#include "huffmanCoding.hpp"
+#include "output.hpp"
 
 using namespace std;
-
-void deallocateNodes(Node * node) {
-	if (!node)
-	{
-		return;
-	}
-
-	deallocateNodes(node->left);
-	deallocateNodes(node->right);
-
-	free(node);
-}
-
-
-void outputOriginal(uint8_t * data_ptr, int data_size) {
-	cout << "Original Message:" << endl;
-
-	for(int i = 0; i < data_size; i++) {
-		cout << hex << (unsigned) data_ptr[i] << " ";
-	}
-	cout << endl << endl;
-}
-
-void outputEncoded(uint8_t * data_ptr, int data_size, unordered_map<uint8_t, string> &encodings) {
-	cout << "Encoded Message:" << endl;
-
-	int encoded_size = 0;
-
-	for(int i = 0; i < data_size; i++) {
-		cout << encodings[data_ptr[i]] << " ";
-		encoded_size += (encodings[data_ptr[i]]).size();
-	}
-	cout << endl << endl;
-	cout << "Original Size:		" << dec << data_size * 8 << " bits" << endl;
-	cout << "Encoded Size:		" << dec << encoded_size << " bits" << endl;
-	cout << "Compressions Ratio:	" << fixed << static_cast<double>(data_size * 8)/(encoded_size) << endl;
-	double space_savings = 1 - static_cast<double>(encoded_size)/(data_size * 8);
-	int percent = (space_savings * 100);
-	cout << "Space Savings: 		" << dec << percent << "%" << endl;
-}
-
-void printEncodingTable(unordered_map<uint8_t, string> &encodings) {
-	cout << "Encoding Table:" << endl;
-
-	for(auto it = encodings.begin(); it != encodings.end(); it++) {
-		cout << hex << (unsigned) it->first << "	" << dec << it->second << endl;
-	}
-	cout << endl;
-}
-
-void createEncodings(Node * node, unordered_map<uint8_t, string> &encodings) {
-	if (!node)
-	{
-		return;
-	}
-
-	// If not internal node, add to encodings table
-	if(node->get_data() != 0xFF)
-		encodings[node->get_data()] = node->get_encoded_data();
-
-	if(node->left)
-		node->left->encode(node->get_encoded_data() + "0");
-	createEncodings(node->left, encodings);
-	if(node->right)
-		node->right->encode(node->get_encoded_data() + "1");
-	createEncodings(node->right, encodings);
-}
-
-Node * buildHuffmanTree(vector<Node> &v) {
-	Node * ninternal, *nleft, *nright;
-	// Add case where vector length is 1
-	while(v.size() > 1)
-	{
-		if(!v[0].node)
-			nleft = new Node(v[0]);
-		else
-			nleft = v[0].node;
-		if(!v[1].node)
-			nright = new Node (v[1]);
-		else
-			nright = v[1].node;
-
-		ninternal = new Node();
-		*ninternal = *nleft + *nright;
-		ninternal->left = nleft;
-		ninternal->right = nright;
-		ninternal->node = ninternal;
-		v.erase(v.begin()); // erase first element
-		v.erase(v.begin()); // erase second element
-		v.push_back(*ninternal);
-		sort(v.begin(), v.end());
-	}
-	return (ninternal);
-}
 
 int byte_compress(uint8_t * data_ptr, int data_size) {
 
@@ -113,16 +22,13 @@ int byte_compress(uint8_t * data_ptr, int data_size) {
 	// Fill in encodings in tree
 	parent->encode("0");
 	unordered_map<uint8_t, string> encodings;
-	createEncodings(parent, encodings);
+	createEncodingTable(parent, encodings);
 
-	// Output encodings table
-	printEncodingTable(encodings);
-
+	outputEncodingTable(encodings);
 	outputOriginal(data_ptr, data_size);
-	// Output encoded message
 	outputEncoded(data_ptr, data_size, encodings);
 
-	// Free dynamic memory
+	// Free allocated memory
 	deallocateNodes(parent);
 
 	return 1;
