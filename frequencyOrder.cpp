@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <unordered_map> 
 #include "frequencyOrder.hpp"
-#include "Pair.hpp"
 
 using namespace std;
 
@@ -27,7 +26,7 @@ void frequencyOrder(vector<Node> &v, uint8_t * data_ptr, int data_size) {
 	// Order vector by frequency
 	for(auto it = umap.begin(); it != umap.end(); it++)
 	{
-		v.push_back(Node(Pair(it->first, it->second)));
+		v.push_back(Node(it->first, it->second));
 	}
 	sort(v.begin(), v.end()); 
 }

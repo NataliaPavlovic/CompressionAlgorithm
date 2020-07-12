@@ -1,15 +1,14 @@
-objects = main.o frequencyOrder.o huffmanCoding.o Node.o output.o Pair.o
+objects = main.o frequencyOrder.o huffmanCoding.o Node.o output.o
           
 
 parser : $(objects)
-	g++ -o main $(objects)
+	g++ -Wall -o main $(objects)
 
 main.o : main.hpp frequencyOrder.hpp Node.hpp huffmanCoding.hpp output.hpp
-frequencyOrder.o: frequencyOrder.hpp Pair.hpp
+frequencyOrder.o: frequencyOrder.hpp
 huffmanCoding.o: huffmanCoding.hpp
-Node.o: Node.hpp Pair.hpp
+Node.o: Node.hpp 
 output.o: output.hpp
-Pair.o: Pair.hpp
 
 .PHONY : clean
 clean :

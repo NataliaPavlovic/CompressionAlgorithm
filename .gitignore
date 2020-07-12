@@ -33,3 +33,5 @@
 
 # Other
 *.stackdump
+*.json
+main

@@ -1,17 +1,19 @@
 #include "Node.hpp"
-#include "Pair.hpp"
 
 using namespace std;
 
 Node::Node() {
+	data = 0xFF;
+	frequency = 0;
 	encoded_data = "";
 	left = nullptr;
 	right = nullptr;
 	internal_node = nullptr;
 }
 
-Node::Node(const Pair & param){
-	p = param; // Default copy is okay
+Node::Node(const uint8_t &d, const int &f){
+	data = d; 
+	frequency = f;
 	encoded_data = "";
 	left = nullptr;
 	right = nullptr;
@@ -19,7 +21,8 @@ Node::Node(const Pair & param){
 }
 
 Node::Node(const Node & param){
-	p = param.p;
+	data = param.data;
+	frequency = param.frequency;
 	encoded_data = param.encoded_data;
 	left = param.left;
 	right = param.right;
@@ -28,7 +31,8 @@ Node::Node(const Node & param){
 
 Node Node::operator + (Node & r) {
 	Node temp;
-	temp.p = p + r.p;
+	temp.frequency = frequency + r.frequency;
+	temp.data = 0xFF;
 	temp.left = this;
 	temp.right = &r;
 	return temp;
